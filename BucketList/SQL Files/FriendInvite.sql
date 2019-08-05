@@ -9,6 +9,6 @@
         ON UPDATE CASCADE,
 	CONSTRAINT FK_FriendInvite_User2 FOREIGN KEY (toUserID)
         REFERENCES [dbo].[User] (userID)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 )
