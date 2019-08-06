@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Blush.Models.Product>
+@section Scripts
+{
+    <script src="@Url.Content("~/Scripts/jqueryFoo.js")"></script>
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<h2>Our Weapons of Choice</h2>
+
+@if (HttpContext.Current.User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Add a New Product", "AddProduct")
+    </p>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-3 text-center">
+            <div class="thumbnail">
+                <img src="@Url.Content(item.ImagePath)" alt="Product" />
+                @Html.DisplayFor(modelItem => item.Name)
+                <br />
+                @Html.DisplayFor(modelItem => item.Brand)
+                <br />
+                R @Html.DisplayFor(modelItem => item.Price)
+
+                @if (HttpContext.Current.User.IsInRole("Admin"))
+                {
+                    if (item.Quantity > 0)
+                    {
+                        <p>In Stock</p>
+                        @Html.ActionLink("Edit ", "EditProduct", "Home", new { id = item.Id }, null)
+                    }
+                    else
+                    {
+                        <p>Out of Stock</p>
+                        @Html.ActionLink("Edit ", "EditProduct", "Home", new { id = item.Id }, null)
+                    }
+                }
+                else
+                {
+                    if (item.Quantity > 0)
+                    {
+                        <p>In Stock</p>
+                        @Html.ActionLink("Add To Cart", "AddToCart", "Home", new { id = item.Id, page = "Index", pageId = 0 }, null)
+                    }
+                    else
+                    {
+                        <p>Out of Stock</p>
+                        <br />
+                    }
+                }
+
+            </div>
+        </div>
+    }
+</div>

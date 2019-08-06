@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Blush.Models.Product>
+
+@{
+    ViewBag.Title = "ViewCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Your Shopping Cart</h2>
+
+@if (Model.Count().Equals(0))
+{
+    <h4>Nothing in Cart yet</h4>
+    @Html.ActionLink("Continue Shopping", "Index", "Home");
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-8">
+            <br />
+            @{ decimal count = 0;}
+            @foreach (var item in Model)
+            {
+                count += item.Price;
+            <div class="media">
+                <div class="pull-left">
+                    <img src="@Url.Content(item.ImagePath)" alt="Product" class="media-object custom-media" style="width:120px">
+                </div>
+                <div class="media-body">
+                    @Html.DisplayFor(modelItem => item.Name)
+                    <br />
+                    @Html.DisplayFor(modelItem => item.Brand)
+                    <br />
+                    R @Html.DisplayFor(modelItem => item.Price)
+                    <br />
+                    @Html.ActionLink("Remove from Cart", "RemoveFromCart", "Home", new { id = item.Id}, null)
+                </div>
+            </div>
+            }
+        </div>
+        <div class="col-lg-4">
+            <div class="affix">
+                <h3>Total in Cart: R @Math.Round(count, 2)</h3>
+                <br />
+                @Html.ActionLink("Check Out", "CheckOut", "Home", null, new { @class = "btn btn-default btn-custom" })
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title</h2>
+
+<h3>Assumptions</h3>
+<ul class="about">
+    <li>The deletion option for products was left out on purpose. This is to maintain referential integrity. Instead, an admin can set the stock count to 0. For a demonstration of a deletion method, please see the RemoveFromCart method</li>
+    <li>When purchasing an item, no payment or delivery information needs to be entered to process the sale</li>
+</ul>
+
+<h3>Additional Functionality</h3>
+<ul class="about">
+    <li>A drop-down menu under Products categorises the products</li>
+    <li>Only features accessible by the current user's authorisation are visible to promote a clean layout</li>
+    <li>Customers can remove items from their cart</li>
+    <li>The checkout button is fixed so the total and checkout button is always visible on the ViewCart page</li>
+    <li>The purchase history for each customer includes a list of all items purchased along with the items currently in their cart</li>
+    <li>Items remain in a customer's cart until they remove them, even when they log off, so a customer does not have to restart the buying process</li>
+    <li>A personalised greeting is displayed when a user is logged in</li>
+    <li>Admins can make other users admins on the customer information page</li>
+    <li>The stock count of a product is decremented when it is purchased</li>
+    <li>Logged in users can update their information</li>
+    <li>Responsive design</li>
+    <li>Pop-up notifications when action is completed or error has occured</li>
+</ul>

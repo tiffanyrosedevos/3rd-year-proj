@@ -1,0 +1,110 @@
+﻿@model IEnumerable<Blush.ViewModels.ViewModelPurchase>
+
+@{
+    ViewBag.Title = "PurchaseHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Purchase History</h2>
+
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cart.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Price)
+        </th>
+    </tr>
+    @{ decimal count = 0;}
+    @foreach (var item in Model)
+    {
+        if (item.Cart.Date != null)
+        {
+            count += item.Product.Price;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cart.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Brand)
+                </td>
+                <td>
+                    R @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+            </tr>
+        }
+    }
+    @if (count == 0)
+    {
+            <tr>
+                <td>Nothing purchased yet</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+    }
+</table>
+<br />
+<h2>Currently in Cart</h2>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.Price)
+        </th>
+    </tr>
+    @{ decimal count2 = 0;}
+    @foreach (var item in Model)
+    {
+        if (item.Cart.Date == null)
+        {
+            count2 += item.Product.Price;
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Brand)
+                </td>
+                <td>
+                    R @Html.DisplayFor(modelItem => item.Product.Price)
+                </td>
+            </tr>
+        }
+    }
+    @if (count2 == 0)
+    {
+            <tr>
+                <td>Nothing in cart yet</td>
+                <td></td>
+                <td></td>
+            </tr>
+    }
+    else
+    {
+            <tr>
+                <th>Total Amount Due:</th>
+                <td></td>
+                <td>R @Math.Round(count2, 2)</td>
+            </tr>
+    }
+
+</table>
