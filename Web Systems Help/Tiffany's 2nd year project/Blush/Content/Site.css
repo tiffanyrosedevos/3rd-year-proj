@@ -1,0 +1,146 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.navbar {
+    background-color: #36454F;
+}
+
+
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: lightgrey;
+    border:none;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    color: #ffffff;
+    background-color: #36454F;
+}
+
+.navbar-inverse .navbar-header > a {
+    color: hotpink;
+    font-size: 300%;
+}
+.navbar-inverse .navbar-header > a:hover, .navbar-inverse .navbar-header > a:focus {
+    color: deeppink;
+}
+
+.navbar {
+    min-height: 65px;
+    padding-top: 8px;
+    padding-left: 40px;
+}
+
+.dropdown-menu {
+    background-color: #36454F;
+    border: none;
+}
+.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+    color: lightgrey;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.dropdown-menu > li > a {
+    color: white;
+}
+
+a:focus {
+    outline: none;
+}
+
+.body-content{
+    padding-top: 15px;
+}
+
+.thumbnail{
+    margin-top: 10px;
+    margin-bottom:10px;
+}
+a {
+    color: hotpink;
+}
+
+a:hover, a:focus {
+    color: deeppink;
+    text-decoration: none;
+}
+
+.alert-success {
+    color: hotpink !important;
+    background-color: rgb(255,240,247) !important;
+    border-color: rgb(255,195,225) !important;
+}
+
+.custom-media, .media-body {
+    display: inline;
+}
+
+.btn-custom {
+    font-size: 25px;
+    color: hotpink !important;
+    background-color: rgb(255,240,247) !important;
+    border-color: rgb(255,195,225) !important;
+}
+
+.btn-custom:hover, .btn-custom:focus {
+    background-color: rgb(255,210,232) !important;
+    border-color: rgb(255,180,217)
+}
+
+.a-custom:hover{
+    color:white !important;
+}
+
+.about > li{
+    padding-top: 10px
+}
+
+.about{
+    padding-left: 10px;
+}
+
+@media (max-width: 992px) {
+    .pull-right{
+        float: none !important;
+    }
+    .a-custom{
+        display: none !important;
+    }
+}
+
+.btn:focus, .btn:focus{
+    outline: none;
+}
+
+@media (max-width: 1200px) {
+    .affix {
+        position:relative;
+    }
+}
