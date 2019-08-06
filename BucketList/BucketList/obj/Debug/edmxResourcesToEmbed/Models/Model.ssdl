@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Achievement">
+    <Key>
+      <PropertyRef Name="achievementID" />
+    </Key>
+    <Property Name="achievementID" Type="int" Nullable="false" />
+    <Property Name="description" Type="varchar(max)" />
+    <Property Name="difficulty" Type="int" />
+    <Property Name="nrNeeded" Type="int" />
+  </EntityType>
+  <EntityType Name="Challenge">
+    <Key>
+      <PropertyRef Name="challengeID" />
+    </Key>
+    <Property Name="challengeID" Type="int" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="varchar(max)" />
+    <Property Name="difficulty" Type="int" />
+    <Property Name="points" Type="int" />
+    <Property Name="needPhoto" Type="bit" />
+    <Property Name="canBeGroup" Type="bit" />
+  </EntityType>
+  <EntityType Name="FriendInvite">
+    <Key>
+      <PropertyRef Name="friendInviteID" />
+    </Key>
+    <Property Name="friendInviteID" Type="int" Nullable="false" />
+    <Property Name="fromUserID" Type="int" Nullable="false" />
+    <Property Name="toUserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Friendship">
+    <Key>
+      <PropertyRef Name="friendInviteID" />
+    </Key>
+    <Property Name="friendInviteID" Type="int" Nullable="false" />
+    <Property Name="userID1" Type="int" Nullable="false" />
+    <Property Name="userID2" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GroupChallengeInvite">
+    <Key>
+      <PropertyRef Name="challengeInviteID" />
+    </Key>
+    <Property Name="challengeInviteID" Type="int" Nullable="false" />
+    <Property Name="fromUserID" Type="int" Nullable="false" />
+    <Property Name="toUserID" Type="int" Nullable="false" />
+    <Property Name="challengeID" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Rating">
+    <Key>
+      <PropertyRef Name="ratingID" />
+    </Key>
+    <Property Name="ratingID" Type="int" Nullable="false" />
+    <Property Name="challengeId" Type="int" Nullable="false" />
+    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="rating" Type="int" Nullable="false" />
+    <Property Name="review" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="SuggestedChallenge">
+    <Key>
+      <PropertyRef Name="suggestedChallengeID" />
+    </Key>
+    <Property Name="suggestedChallengeID" Type="int" Nullable="false" />
+    <Property Name="userID" Type="int" />
+    <Property Name="title" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="varchar(max)" />
+    <Property Name="difficulty" Type="int" />
+    <Property Name="points" Type="int" />
+    <Property Name="needPhoto" Type="bit" />
+    <Property Name="canBeGroup" Type="bit" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="firstName" Type="varchar" MaxLength="50" />
+    <Property Name="surname" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="userType" Type="bit" />
+    <Property Name="points" Type="int" />
+  </EntityType>
+  <EntityType Name="UserAchievement">
+    <Key>
+      <PropertyRef Name="userID" />
+      <PropertyRef Name="achievementID" />
+    </Key>
+    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="achievementID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserChallenge">
+    <Key>
+      <PropertyRef Name="userID" />
+      <PropertyRef Name="challengeID" />
+    </Key>
+    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="challengeID" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="photo" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_FriendInvite_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="FriendInvite" Type="Self.FriendInvite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="FriendInvite">
+        <PropertyRef Name="fromUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FriendInvite_User2">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="FriendInvite" Type="Self.FriendInvite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="FriendInvite">
+        <PropertyRef Name="toUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Friendship_User1">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Friendship" Type="Self.Friendship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Friendship">
+        <PropertyRef Name="userID1" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Friendship_User2">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Friendship" Type="Self.Friendship" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Friendship">
+        <PropertyRef Name="userID2" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupChallengeInvite_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="GroupChallengeInvite" Type="Self.GroupChallengeInvite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="GroupChallengeInvite">
+        <PropertyRef Name="toUserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GroupChallengeInvite_UserChallenge">
+    <End Role="UserChallenge" Type="Self.UserChallenge" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GroupChallengeInvite" Type="Self.GroupChallengeInvite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserChallenge">
+        <PropertyRef Name="userID" />
+        <PropertyRef Name="challengeID" />
+      </Principal>
+      <Dependent Role="GroupChallengeInvite">
+        <PropertyRef Name="fromUserID" />
+        <PropertyRef Name="challengeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rating_Challenge">
+    <End Role="Challenge" Type="Self.Challenge" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Challenge">
+        <PropertyRef Name="challengeID" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="challengeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rating_User">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="Rating">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SuggestedChallenge_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SuggestedChallenge" Type="Self.SuggestedChallenge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="SuggestedChallenge">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAchievement_Achievement">
+    <End Role="Achievement" Type="Self.Achievement" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserAchievement" Type="Self.UserAchievement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Achievement">
+        <PropertyRef Name="achievementID" />
+      </Principal>
+      <Dependent Role="UserAchievement">
+        <PropertyRef Name="achievementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAchievement_User">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserAchievement" Type="Self.UserAchievement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="UserAchievement">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserChallenge_Challenge">
+    <End Role="Challenge" Type="Self.Challenge" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserChallenge" Type="Self.UserChallenge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Challenge">
+        <PropertyRef Name="challengeID" />
+      </Principal>
+      <Dependent Role="UserChallenge">
+        <PropertyRef Name="challengeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserChallenge_User">
+    <End Role="User" Type="Self.User" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="UserChallenge" Type="Self.UserChallenge" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="UserChallenge">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatabaseModelStoreContainer">
+    <EntitySet Name="Achievement" EntityType="Self.Achievement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Challenge" EntityType="Self.Challenge" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FriendInvite" EntityType="Self.FriendInvite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Friendship" EntityType="Self.Friendship" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GroupChallengeInvite" EntityType="Self.GroupChallengeInvite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SuggestedChallenge" EntityType="Self.SuggestedChallenge" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserAchievement" EntityType="Self.UserAchievement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserChallenge" EntityType="Self.UserChallenge" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_FriendInvite_User1" Association="Self.FK_FriendInvite_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="FriendInvite" EntitySet="FriendInvite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FriendInvite_User2" Association="Self.FK_FriendInvite_User2">
+      <End Role="User" EntitySet="User" />
+      <End Role="FriendInvite" EntitySet="FriendInvite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Friendship_User1" Association="Self.FK_Friendship_User1">
+      <End Role="User" EntitySet="User" />
+      <End Role="Friendship" EntitySet="Friendship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Friendship_User2" Association="Self.FK_Friendship_User2">
+      <End Role="User" EntitySet="User" />
+      <End Role="Friendship" EntitySet="Friendship" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupChallengeInvite_User" Association="Self.FK_GroupChallengeInvite_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="GroupChallengeInvite" EntitySet="GroupChallengeInvite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GroupChallengeInvite_UserChallenge" Association="Self.FK_GroupChallengeInvite_UserChallenge">
+      <End Role="UserChallenge" EntitySet="UserChallenge" />
+      <End Role="GroupChallengeInvite" EntitySet="GroupChallengeInvite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rating_Challenge" Association="Self.FK_Rating_Challenge">
+      <End Role="Challenge" EntitySet="Challenge" />
+      <End Role="Rating" EntitySet="Rating" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rating_User" Association="Self.FK_Rating_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Rating" EntitySet="Rating" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SuggestedChallenge_User" Association="Self.FK_SuggestedChallenge_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="SuggestedChallenge" EntitySet="SuggestedChallenge" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAchievement_Achievement" Association="Self.FK_UserAchievement_Achievement">
+      <End Role="Achievement" EntitySet="Achievement" />
+      <End Role="UserAchievement" EntitySet="UserAchievement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAchievement_User" Association="Self.FK_UserAchievement_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserAchievement" EntitySet="UserAchievement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserChallenge_Challenge" Association="Self.FK_UserChallenge_Challenge">
+      <End Role="Challenge" EntitySet="Challenge" />
+      <End Role="UserChallenge" EntitySet="UserChallenge" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserChallenge_User" Association="Self.FK_UserChallenge_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserChallenge" EntitySet="UserChallenge" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities1">
+    <EntitySetMapping Name="Achievements">
+      <EntityTypeMapping TypeName="DatabaseModel.Achievement">
+        <MappingFragment StoreEntitySet="Achievement">
+          <ScalarProperty Name="achievementID" ColumnName="achievementID" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="difficulty" ColumnName="difficulty" />
+          <ScalarProperty Name="nrNeeded" ColumnName="nrNeeded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Challenges">
+      <EntityTypeMapping TypeName="DatabaseModel.Challenge">
+        <MappingFragment StoreEntitySet="Challenge">
+          <ScalarProperty Name="challengeID" ColumnName="challengeID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="difficulty" ColumnName="difficulty" />
+          <ScalarProperty Name="points" ColumnName="points" />
+          <ScalarProperty Name="needPhoto" ColumnName="needPhoto" />
+          <ScalarProperty Name="canBeGroup" ColumnName="canBeGroup" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FriendInvites">
+      <EntityTypeMapping TypeName="DatabaseModel.FriendInvite">
+        <MappingFragment StoreEntitySet="FriendInvite">
+          <ScalarProperty Name="friendInviteID" ColumnName="friendInviteID" />
+          <ScalarProperty Name="fromUserID" ColumnName="fromUserID" />
+          <ScalarProperty Name="toUserID" ColumnName="toUserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Friendships">
+      <EntityTypeMapping TypeName="DatabaseModel.Friendship">
+        <MappingFragment StoreEntitySet="Friendship">
+          <ScalarProperty Name="friendInviteID" ColumnName="friendInviteID" />
+          <ScalarProperty Name="userID1" ColumnName="userID1" />
+          <ScalarProperty Name="userID2" ColumnName="userID2" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupChallengeInvites">
+      <EntityTypeMapping TypeName="DatabaseModel.GroupChallengeInvite">
+        <MappingFragment StoreEntitySet="GroupChallengeInvite">
+          <ScalarProperty Name="challengeInviteID" ColumnName="challengeInviteID" />
+          <ScalarProperty Name="fromUserID" ColumnName="fromUserID" />
+          <ScalarProperty Name="toUserID" ColumnName="toUserID" />
+          <ScalarProperty Name="challengeID" ColumnName="challengeID" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ratings">
+      <EntityTypeMapping TypeName="DatabaseModel.Rating">
+        <MappingFragment StoreEntitySet="Rating">
+          <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+          <ScalarProperty Name="challengeId" ColumnName="challengeId" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="rating1" ColumnName="rating" />
+          <ScalarProperty Name="review" ColumnName="review" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SuggestedChallenges">
+      <EntityTypeMapping TypeName="DatabaseModel.SuggestedChallenge">
+        <MappingFragment StoreEntitySet="SuggestedChallenge">
+          <ScalarProperty Name="suggestedChallengeID" ColumnName="suggestedChallengeID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="difficulty" ColumnName="difficulty" />
+          <ScalarProperty Name="points" ColumnName="points" />
+          <ScalarProperty Name="needPhoto" ColumnName="needPhoto" />
+          <ScalarProperty Name="canBeGroup" ColumnName="canBeGroup" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="DatabaseModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="surname" ColumnName="surname" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="userType" ColumnName="userType" />
+          <ScalarProperty Name="points" ColumnName="points" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserChallenges">
+      <EntityTypeMapping TypeName="DatabaseModel.UserChallenge">
+        <MappingFragment StoreEntitySet="UserChallenge">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="challengeID" ColumnName="challengeID" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserAchievement" TypeName="DatabaseModel.UserAchievement" StoreEntitySet="UserAchievement">
+      <EndProperty Name="Achievement">
+        <ScalarProperty Name="achievementID" ColumnName="achievementID" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="userID" ColumnName="userID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
