@@ -36,15 +36,55 @@ namespace BucketList.Controllers
                     friend.surname = reader.GetString(1);
                     friend.points = reader.GetInt32(2);
                 }
+                command = new SqlCommand("Select a.description from Achievement a INNER JOIN UserAchievement u ON a.achievementID = u.achievementID WHERE u.userID = @friendID", conn);
+                param = new SqlParameter();
+                param.ParameterName = "@friendID";
+                param.Value = friendID;
+                command.Parameters.Add(param);
+                reader = command.ExecuteReader();
+                friend.achievements = new List<string>();
+                while (reader.Read())
+                {
+                    String achievement = reader.GetString(0);
+                    friend.achievements.Add(achievement);
+                }
                 conn.Close();
                 reader.Close();
             }
             catch(Exception e)
             {
-                
+                Console.WriteLine(e);
             }
 
             return View(friend);
+        }
+       
+        public ActionResult RemoveFriend(int userID, int friendID)
+        {
+            try
+            {
+                string CS = ConfigurationManager.ConnectionStrings["DatabaseEntities1"].ConnectionString;
+                SqlConnection conn = new SqlConnection(CS);
+                conn.Open();
+                SqlParameter param1 = new SqlParameter();
+                param1.ParameterName = "@friendID";
+                param1.Value = friendID;
+                SqlParameter param2 = new SqlParameter();
+                param2.ParameterName = "@userID";
+                param2.Value = userID;
+                SqlCommand command = new SqlCommand("DELETE FROM Friendship WHERE (userID1 = @userID AND userID2 = @friendID) OR (userID1 = @friendID AND userID2 = @userID)", conn);
+                command.Parameters.Add(param1);
+                command.Parameters.Add(param2);
+
+                command.ExecuteNonQuery();
+
+                conn.Close();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }
