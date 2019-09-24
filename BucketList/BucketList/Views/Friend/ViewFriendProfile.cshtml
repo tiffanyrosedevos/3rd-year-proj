@@ -1,0 +1,15 @@
+﻿@model BucketList.Models.UserFriend
+
+@{
+    ViewBag.Title = "ViewFriendProfile";
+}
+
+<div class="text-center">
+    <h2>@Model.firstName @Model.surname</h2>
+
+    <h3>@Model.points</h3>
+
+    @Html.ActionLink("Remove Friend", "RemoveFriend", "Friend", null, new { @class = "btn btn-default" })
+
+</div>
+
