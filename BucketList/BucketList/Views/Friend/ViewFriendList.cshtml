@@ -1,0 +1,19 @@
+﻿@model BucketList.Models.Friends
+@{
+    ViewBag.Title = "ViewFriendList";
+}
+
+<p>Search <textarea>Enter name and surname</textarea>
+<button class = "btn btn-default">Send Friend Request</button>
+</p>
+
+<h2>Your Friends <button class="btn btn-default">Filter</button></h2>
+
+
+@foreach(var item in Model.currentFriends)
+{
+    <p>@item.firstName @item.surname  @item.points
+    
+    @Html.ActionLink("Remove Friend", "RemoveFriend", "Friend", new { userID = 2, friendID = 1 }, new { @class = "btn btn-default" })
+</p> 
+}

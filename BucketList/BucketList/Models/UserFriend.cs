@@ -10,6 +10,7 @@ namespace BucketList.Models
     {
         public int userID { get; set; }
         public int friendID { get; set; }
+        public string username { get; set; }
         public string firstName { get; set; }
         public string surname { get; set; }
         public int points { get; set; }
