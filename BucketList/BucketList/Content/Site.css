@@ -5,8 +5,8 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 60px;
+    padding-right: 60px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -31,15 +31,34 @@ h2 {
     background-color: #96CDFA;
 }
 
-.navbar.center .navbar-inner {
-    text-align: center;
+.navbar-inverse .navbar-nav > li > a {
+    color: #434343;
 }
 
-.navbar.center .navbar-inner .nav {
-    display: inline-block;
+.navbar-inverse .navbar-header > a {
+    color: #434343;
+    font-size: 300%;
+}
+
+.navbar {
+    min-height: 65px;
+    padding-top: 8px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+.navbar-nav.navbar-center {
     float: none;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 }
 
 .body-content{
     margin-top: 80px;
+}
+
+.padding-right{
+    padding-right: 40px;
 }
