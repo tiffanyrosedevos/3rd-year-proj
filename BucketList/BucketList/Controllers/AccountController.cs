@@ -13,5 +13,10 @@ namespace BucketList.Controllers
         {
             return View();
         }
+
+        //Login
+        //Logout
+        //signup
+        //maintain account
     }
 }
