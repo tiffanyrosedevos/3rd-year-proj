@@ -39,3 +39,7 @@ h2 {
     display: inline-block;
     float: none;
 }
+
+.body-content{
+    margin-top: 80px;
+}
