@@ -16,13 +16,45 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("BucketList", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <ul class="nav navbar-nav pull-right">
+                    @if (true)//this.Context.User.Identity.IsAuthenticated)
+                    {
+                        //HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                        //FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                        if (true) //HttpContext.Current.User.IsInRole("User"))
+                        {
+                            //ticket.Name
+                            <li>@Html.ActionLink("User's Name", "ViewProfile", "Home")</li>
+                            <li>@Html.ActionLink("Notifications", "ViewNotifications", "Home")</li>
+                            <li>@Html.ActionLink("Account", "ViewAccount", "Home")</li>
+                        }
+                        <li>@Html.ActionLink("Logout", "Logout", "Security")</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav center">
+                    @if (true)//this.Context.User.Identity.IsAuthenticated)
+                    {
+                        //HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+                        //FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+                        if (true) //HttpContext.Current.User.IsInRole("User"))
+                        {
+                            //ticket.Name
+                            <li>@Html.ActionLink("Discover Challenges", "DiscoverChallenges", "Home")</li>
+                            <li>@Html.ActionLink("Friends' Challenges", "FriendsChallenges", "Home")</li>
+                            <li>@Html.ActionLink("My Challenges", "MyChallenges", "Home")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Maintain Challenges", "MaintainChallenges", "Admin")</li>
+                            <li>@Html.ActionLink("Review Challenges", "ReviewChallenges", "Admin")</li>
+                        }
+                    }
                 </ul>
             </div>
         </div>
