@@ -136,6 +136,8 @@
     <Compile Include="Models\Challenge.cs" />
     <Compile Include="Models\ChallengeRating.cs" />
     <Compile Include="Models\Friends.cs" />
+    <Compile Include="Models\Invite.cs" />
+    <Compile Include="Models\Invites.cs" />
     <Compile Include="Models\UserFriend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\FriendController.cs" />
