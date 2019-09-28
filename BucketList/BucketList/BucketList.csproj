@@ -128,10 +128,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ChallengeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Challenge.cs" />
+    <Compile Include="Models\ChallengeRating.cs" />
     <Compile Include="Models\Friends.cs" />
     <Compile Include="Models\UserFriend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -179,6 +182,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Friend\ViewFriendProfile.cshtml" />
     <Content Include="Views\Friend\ViewFriendList.cshtml" />
+    <Content Include="Views\Challenge\SuggestChallenge.cshtml" />
+    <Content Include="Views\Challenge\RateChallenge.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
