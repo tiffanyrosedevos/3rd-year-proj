@@ -9,27 +9,36 @@
 
 <text style="display:none" id="userID">@Model.userID</text>
 
-<form>
-    <div class="input-group">
-        <label for="searchFriend">Search</label>
-        @*<input type="text" id="textfield" placeholder="Enter name and surname">*@
-        <select id="searchFriend" style="width: 60%">
-            <option></option>
-            @foreach (var item in Model.nonFriends)
-            {
-                <option value="@item.friendID">@item.firstName @item.surname (@item.username)</option>
-            }
-        </select>
-        <button class="btn btn-default" id="btnAddFriend">Add Friend</button>
-    </div>
-</form>
 
-<h2><span class="padding-right">Your Friends</span> <button class="btn btn-default">Filter</button></h2>
+<label for="searchFriend">Search</label>
+<select id="searchFriend" style="width: 30%">
+    <option></option>
+    @foreach (var item in Model.nonFriends)
+    {
+        <option value="@item.friendID">@item.firstName @item.surname (@item.username)</option>
+    }
+</select>
+<button class="btn btn-default" id="btnAddFriend">Add Friend</button>
 
+<h2><span class="padding-right">Your Friends</span> <button class="btn btn-default" id="btnFilter">Filter</button></h2>
 
+<div id="filterBox" style="display: none">
+    <label for="filterFriend">Friend:</label>
+    <select id="filterFriend" style="width: 30%">
+        <option></option>
+        @foreach (var item in Model.currentFriends)
+        {
+        <option value="@item.friendID">@item.firstName @item.surname (@item.username)</option>
+        }
+    </select>
+    <button class="btn btn-default" id="btnApplyFilter">Apply Filter</button>
+
+</div>
+
+<div id="friendList">
 @foreach (var item in Model.currentFriends)
 {
-    <p>
+    <p id=@item.friendID>
         <span class="padding-right">
             @item.firstName @item.surname  <b>@item.points</b>
         </span>
@@ -37,6 +46,7 @@
         @Html.ActionLink("Remove Friend", "RemoveFriend", "Friend", new { userID = Model.userID, friendID = item.friendID }, new { @class = "btn btn-default" })
     </p>
 }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
@@ -47,23 +57,49 @@
             placeholder: "Enter name, surname or username",
             allowClear: true
         });
-   $("#btnAddFriend").click(function(e){
-       e.preventDefault();
-       var friendID = $("#searchFriend :selected").val();
-
-       console.log(friendID);
-       var userID = $("#userID").text();
-       $.ajax({
-           url: '@Url.Action("SendFriendRequest", "Friend")',
-           type: 'POST',
-           contentType: 'application/json;',
-           data: JSON.stringify({
-               friendID: friendID,
-               userID: userID
-               }),
-           success: function (valid) {
-               }
-       });
-   });
-});
+        $('#filterFriend').select2({
+            placeholder: "Enter name, surname or username",
+            allowClear: true
+        });
+        $("#btnAddFriend").click(function(e){
+            e.preventDefault();
+            var friendID = $("#searchFriend :selected").val();
+            var userID = $("#userID").text();
+            $.ajax({
+                url: '@Url.Action("SendFriendRequest", "Friend")',
+                type: 'POST',
+                contentType: 'application/json;',
+                data: JSON.stringify({
+                    friendID: friendID,
+                    userID: userID
+                    }),
+                success: function (valid) {
+                    }
+            });
+        });
+        $("#btnFilter").click(function (e) {
+            e.preventDefault();
+            if ($("#filterBox").css("display") == "none") {
+                $("#filterBox").css({ display: "block" });
+            }
+            else {
+                $("#filterBox").css({ display: "none" });
+            }
+        });
+        $("#btnApplyFilter").click(function (e) {
+            e.preventDefault();
+            var friendID = $("#filterFriend :selected").val();
+            console.log(friendID);
+            var elem = $("#friendList").children();
+            for (i = 0; i < elem.length; i++) {
+                var child = elem[i];
+                if (child.id != friendID) {
+                    child.style.display = "none";
+                }
+                else {
+                    child.style.display = "block";
+                }
+            }
+        });
+    });
 </script>
