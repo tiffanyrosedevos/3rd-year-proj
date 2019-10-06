@@ -246,20 +246,10 @@ namespace BucketList.Controllers
             }
         }
 
-        public ActionResult GetNotifications(int userID)
+        public void GetFriendRequests(int userID)
         {
-            List<Invite> invitesF = GetFriendRequests(userID);
-            List<Invite> invitesC = GetChallengeInvites(userID);
             Invites invites = new Invites();
-            invitesF.AddRange(invitesC);
             invites.userID = userID;
-            invites.invites = invitesF;
-            return PartialView(invites);
-        }
-
-        public List<Invite> GetFriendRequests(int userID)
-        {
-            List<Invite> invites = new List<Invite>();
             try
             {
                 string CS = ConfigurationManager.ConnectionStrings["DatabaseEntities1"].ConnectionString;
@@ -271,7 +261,7 @@ namespace BucketList.Controllers
                 SqlCommand command = new SqlCommand("select u.userID, u.username, u.firstName, u.surname, u.points from [dbo].[User] u INNER JOIN FriendInvite f ON u.userID = f.fromUserID where f.toUserID = @userID", conn);
                 command.Parameters.Add(param);
                 SqlDataReader reader = command.ExecuteReader();
-                invites = new List<Invite>();
+                invites.invites = new List<Invite>();
                 while (reader.Read())
                 {
                     Invite invite = new Invite();
@@ -281,7 +271,7 @@ namespace BucketList.Controllers
                     invite.surname = reader.GetString(3);
                     invite.points = reader.GetInt32(4);
                     invite.inviteType = "friend";
-                    invites.Add(invite);
+                    invites.invites.Add(invite);
                 }
                 conn.Close();
                 reader.Close();
@@ -290,12 +280,12 @@ namespace BucketList.Controllers
             {
                 Console.WriteLine(e);
             }
-            return invites;
         }
 
-        public List<Invite> GetChallengeInvites(int userID)
+        public void GetChallengeInvites(int userID)
         {
-            List<Invite> invites = new List<Invite>();
+            Invites invites = new Invites();
+            invites.userID = userID;
             try
             {
                 string CS = ConfigurationManager.ConnectionStrings["DatabaseEntities1"].ConnectionString;
@@ -307,7 +297,7 @@ namespace BucketList.Controllers
                 SqlCommand command = new SqlCommand("select u.userID, u.username, u.firstName, u.surname, u.points, f.challengeInviteID from [dbo].[User] u INNER JOIN GroupChallengeInvite f ON u.userID = f.fromUserID where f.toUserID = @userID AND status = 'pending'", conn);
                 command.Parameters.Add(param);
                 SqlDataReader reader = command.ExecuteReader();
-                invites = new List<Invite>();
+                invites.invites = new List<Invite>();
                 while (reader.Read())
                 {
                     Invite invite = new Invite();
@@ -318,7 +308,7 @@ namespace BucketList.Controllers
                     invite.points = reader.GetInt32(4);
                     invite.inviteID = reader.GetInt32(5);
                     invite.inviteType = "challenge";
-                    invites.Add(invite);
+                    invites.invites.Add(invite);
                 }
                 conn.Close();
                 reader.Close();
@@ -327,14 +317,11 @@ namespace BucketList.Controllers
             {
                 Console.WriteLine(e);
             }
-
-            return invites;
         }
 
         public ActionResult ViewChallengeInvite(int userID, int challengeInviteID)
         {
             Invite invite = new Invite();
-            invite.userID = userID;
             try
             {
                 string CS = ConfigurationManager.ConnectionStrings["DatabaseEntities1"].ConnectionString;

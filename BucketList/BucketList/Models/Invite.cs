@@ -7,7 +7,6 @@ namespace BucketList.Models
 {
     public class Invite
     {
-        public int userID { get; set; }
         public int friendID { get; set; }
         public string username { get; set; }
         public string firstName { get; set; }
