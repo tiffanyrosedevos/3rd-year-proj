@@ -334,6 +334,7 @@ namespace BucketList.Controllers
         public ActionResult ViewChallengeInvite(int userID, int challengeInviteID)
         {
             Invite invite = new Invite();
+            invite.userID = userID;
             try
             {
                 string CS = ConfigurationManager.ConnectionStrings["DatabaseEntities1"].ConnectionString;
