@@ -1,0 +1,16 @@
+﻿@model BucketList.Models.Challenge
+
+@{
+    ViewBag.Title = "Congratulations";
+}
+
+<h2>Congratulations</h2>
+
+<div class="text-center">
+    <h2>Congrats on completing @Model.title</h2>
+
+    <h3>You've earned @Model.points points</h3>
+
+    @Html.ActionLink("Rate Challenge", "RateChallenge", "Challenge", new { userID = 2, @Model.challengeID }, new { @class = "btn btn-default" })
+
+</div>
