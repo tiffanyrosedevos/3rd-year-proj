@@ -191,6 +191,7 @@
     <Content Include="Views\Challenge\RateChallenge.cshtml" />
     <Content Include="Views\Challenge\Congratulations.cshtml" />
     <Content Include="Views\Challenge\ViewRatings.cshtml" />
+    <Content Include="Views\Friend\GetNotifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Account\" />
