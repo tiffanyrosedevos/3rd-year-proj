@@ -135,10 +135,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Challenge.cs" />
-    <Compile Include="Models\ChallengeRating.cs" />
+    <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Friends.cs" />
     <Compile Include="Models\Invite.cs" />
     <Compile Include="Models\Invites.cs" />
+    <Compile Include="Models\Ratings.cs" />
     <Compile Include="Models\UserFriend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\FriendController.cs" />
@@ -189,6 +190,7 @@
     <Content Include="Views\Challenge\SuggestChallenge.cshtml" />
     <Content Include="Views\Challenge\RateChallenge.cshtml" />
     <Content Include="Views\Challenge\Congratulations.cshtml" />
+    <Content Include="Views\Challenge\ViewRatings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Account\" />

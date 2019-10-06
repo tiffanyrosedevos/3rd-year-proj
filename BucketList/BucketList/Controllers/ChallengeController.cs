@@ -63,14 +63,14 @@ namespace BucketList.Controllers
 
         public ActionResult RateChallenge(int userID, int challengeID)
         {
-            ChallengeRating challengeRating = new ChallengeRating();
+            Rating challengeRating = new Rating();
             challengeRating.userID = userID;
             challengeRating.challengeID = challengeID;
             return View(challengeRating);
         }
 
         [HttpPost]
-        public ActionResult RateChallenge(ChallengeRating challengeRating)
+        public ActionResult RateChallenge(Rating challengeRating)
         {         
             try
             {
@@ -133,6 +133,41 @@ namespace BucketList.Controllers
             }
 
             return View(challenge);
+        }
+
+        public ActionResult ViewRatings(int challengeID)
+        {
+            Ratings ratings = new Ratings();
+            try
+            {
+                string CS = ConfigurationManager.ConnectionStrings["DatabaseEntities1"].ConnectionString;
+                SqlConnection conn = new SqlConnection(CS);
+                conn.Open();
+                SqlParameter p = new SqlParameter();
+                p.ParameterName = "@challengeID";
+                p.Value = challengeID;
+                SqlCommand command = new SqlCommand("SELECT u.firstName, u.surname, r.rating, r.review FROM [dbo].[User] AS u INNER JOIN [dbo].[Rating] AS r ON u.userID = r.userID WHERE challengeId = @challengeID", conn);
+                command.Parameters.Add(p);
+                SqlDataReader reader = command.ExecuteReader();
+                ratings.ratings = new List<Rating>();
+                while (reader.Read())
+                {
+                    Rating rating = new Rating();
+                    rating.firstName = reader.GetString(0);
+                    rating.surname = reader.GetString(1);
+                    rating.rating = reader.GetInt32(2);
+                    rating.review = reader.GetString(3);                   
+                    ratings.ratings.Add(rating);
+                }
+                conn.Close();
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return View(ratings);
         }
     }
 }
