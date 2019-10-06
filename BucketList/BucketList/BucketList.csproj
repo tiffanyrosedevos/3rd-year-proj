@@ -140,7 +140,9 @@
     <Compile Include="Models\Invite.cs" />
     <Compile Include="Models\Invites.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserChallenge.cs" />
     <Compile Include="Models\UserFriend.cs" />
+    <Compile Include="Models\UserFriends.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\FriendController.cs" />
   </ItemGroup>

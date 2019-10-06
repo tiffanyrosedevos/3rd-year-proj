@@ -512,5 +512,77 @@ namespace BucketList.Controllers
                 Console.WriteLine(e);
             }
         }
+
+        public ActionResult ViewFriendsChallenges(int userID)
+        {
+            UserFriends  = new Friends();
+            friends.userID = userID;
+            try
+            {
+                string CS = ConfigurationManager.ConnectionStrings["DatabaseEntities1"].ConnectionString;
+                SqlConnection conn = new SqlConnection(CS);
+                conn.Open();
+
+                //get all friends
+                SqlParameter param = new SqlParameter();
+                param.ParameterName = "@userID";
+                param.Value = userID;
+                SqlCommand command = new SqlCommand("select u.userID, u.username, u.firstName, u.surname, u.points from [dbo].[User] u INNER JOIN Friendship f ON u.userID = f.userID1 where f.userID2 = @userID", conn);
+                command.Parameters.Add(param);
+                SqlDataReader reader = command.ExecuteReader();
+                friends.currentFriends = new List<UserFriend>();
+                while (reader.Read())
+                {
+                    UserFriend friend = new UserFriend();
+                    friend.friendID = reader.GetInt32(0);
+                    friend.username = reader.GetString(1);
+                    friend.firstName = reader.GetString(2);
+                    friend.surname = reader.GetString(3);
+                    friend.points = reader.GetInt32(4);
+                    friends.currentFriends.Add(friend);
+                }
+                param = new SqlParameter();
+                param.ParameterName = "@userID";
+                param.Value = userID;
+                command = new SqlCommand("select u.userID, u.username, u.firstName, u.surname, u.points from [dbo].[User] u INNER JOIN Friendship f ON u.userID = f.userID2 where f.userID1 = @userID", conn);
+                command.Parameters.Add(param);
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    UserFriend friend = new UserFriend();
+                    friend.friendID = reader.GetInt32(0);
+                    friend.username = reader.GetString(1);
+                    friend.firstName = reader.GetString(2);
+                    friend.surname = reader.GetString(3);
+                    friend.points = reader.GetInt32(4);
+                    friends.currentFriends.Add(friend);
+                }
+                //get all users
+                command = new SqlCommand("select userID, username, firstName, surname, points from [dbo].[User]", conn);
+                List<UserFriend> nonFriends = new List<UserFriend>();
+                reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    UserFriend friend = new UserFriend();
+                    friend.friendID = reader.GetInt32(0);
+                    friend.username = reader.GetString(1);
+                    friend.firstName = reader.GetString(2);
+                    friend.surname = reader.GetString(3);
+                    friend.points = reader.GetInt32(4);
+                    nonFriends.Add(friend);
+                }
+                conn.Close();
+                reader.Close();
+                //remove friends
+                nonFriends = nonFriends.Where(f => !friends.currentFriends.Any(f2 => f2.friendID == f.friendID)).ToList();
+                //remove user himself
+                friends.nonFriends = nonFriends.Where(f => f.friendID != userID).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return View(friends);
+        }
     }
 }
