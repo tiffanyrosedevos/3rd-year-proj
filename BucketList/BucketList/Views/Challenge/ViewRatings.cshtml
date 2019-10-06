@@ -1,0 +1,20 @@
+﻿@model BucketList.Models.Ratings
+
+@{
+    ViewBag.Title = "ViewRatings";
+}
+
+<h2>ViewRatings</h2>
+
+<div id="ratings">
+    @foreach (var item in Model.ratings)
+    {
+        <div id=@item.ratingID>
+            <h3>@item.firstName @item.surname rated this challenge @item.rating</h3>
+            <p>
+                @item.review
+            </p>
+        </div>
+    }
+</div>
+
