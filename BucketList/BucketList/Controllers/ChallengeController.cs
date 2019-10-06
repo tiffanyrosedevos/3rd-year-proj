@@ -18,5 +18,15 @@ namespace BucketList.Controllers
         {
             return View();
         }
+
+        public ActionResult CreateChallenge()
+        {
+            return View();
+        }
+        public ActionResult MaintainChallenge()
+        {
+            return View();
+        }
+     
     }
 }

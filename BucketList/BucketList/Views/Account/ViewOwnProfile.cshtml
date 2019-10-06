@@ -1,0 +1,18 @@
+﻿@model BucketList.Models.User
+
+@{
+    ViewBag.Title = "ViewOwnProfile";
+}
+
+<div class="text-center">
+    <h2>@Model.firstName @Model.lastName</h2>
+
+    <h3>@Model.points</h3>
+
+    <h3>Achievements</h3>
+    @foreach (String item in Model.achievements)
+    {
+        <h4>@item</h4>
+    }
+
+</div>

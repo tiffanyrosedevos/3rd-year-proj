@@ -1,0 +1,56 @@
+﻿@model BucketList.Models.User
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Account"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Enter Your User Details</h4>
+        <hr />
+        <div>
+            @Html.ActionLink("New to BucketList? Sign up here", "Signup", "Account")
+        </div>
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.username,"Username", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.password,"Password", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Login" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Home", "Index", "Home")
+</div>
+
+
