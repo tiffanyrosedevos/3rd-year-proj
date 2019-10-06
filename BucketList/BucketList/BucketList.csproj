@@ -194,7 +194,6 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
     <Content Include="Views\Challenge\MaintainChallenge.cshtml" />
-    <Content Include="Views\Challenge\EditChallenge.cshtml" />
     <Content Include="Views\Challenge\CreateChallenger.cshtml" />
   </ItemGroup>
   <ItemGroup />
